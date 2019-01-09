@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Images</title>
+</head>
+<body>
+IMG
+
+<form id="form">
+    <input type="text" name="name">
+    <input type="text" name="surname">
+    <input type="text" name="email">
+    <input type="file" name="img">
+
+
+    <button id="btn">Save</button>
+</form>
+
+
+<script>
+    $('#btn').click(function (e) {
+     e.preventDefault();
+     
+       $.ajax({
+         url: "/upl",
+         type: "POST",
+         data: new FormData($('#form')[0]),
+         enctype: 'multipart/form-data',
+         processData: false,//NO JSON
+         contentType: false,
+         cache: false,
+         success: function (re) {
+             console.log(re);
+         },
+         error: function (err) {
+           console.log(err);
+         }
+       });
+     
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+hello
+<div class="insert">
+    <input type="text" id="name">
+    <input type="text" id="surname">
+    <input type="text" id="email">
+
+    <button id="btn">Send</button>
+</div>
+
+
+<div class="tar">
+
+</div>
+
+<script>
+
+    $('#btn').click(function () {
+        $('.tar').empty();
+        let $name = $('#name').val();
+        let $surname = $('#surname').val();
+        let $email = $('#email').val();
+        let User = {name: $name, surname: $surname, email: $email};
+
+        $.ajax({
+                url: '/save',
+                type: 'post',
+                data: JSON.stringify(User),
+                contentType: 'application/json',
+                success: function (allUsers) {
+                    for (const User of allUsers) {
+                        let data='${User.name} ${User.surname} ${User.email}';
+                        $('<div/>', {class: 're', text:data}).append($name);
+                        console.log($name)
+                    }
+                }
+
+
+            }
+        )
+    });
+
+
+</script>
+</body>
+</html>
